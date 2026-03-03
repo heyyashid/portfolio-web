@@ -44,9 +44,9 @@ export default function Home() {
             </div>
 
             {/* Large DEVELOPER Text with Image Overlay */}
-            <div className="relative flex justify-center items-center mb-16 h-[40rem]">
+            <div className="relative flex justify-center items-center -mt-60 mb-16 h-[40rem]">
               {/* Profile Image - Now in the background */}
-              <div className="absolute inset-0 flex items-center justify-center z-0 mt-32">
+              <div className="absolute inset-0 flex items-center justify-center z-0">
                 <img
                   src="/image/profile.png"
                   alt="Profile"
