@@ -1,16 +1,16 @@
 export default function Home() {
   return (
     <main className="bg-black min-h-screen text-white">
-      
+
       {/* MAIN HERO SECTION */}
       <section className="min-h-screen flex items-center justify-center px-6 py-12 relative overflow-hidden">
-        
+
         {/* Background Image/Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black opacity-90"></div>
-        
+
         {/* Content Container */}
         <div className="relative z-10 max-w-7xl w-full">
-          
+
           {/* Top Navigation Pills */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-sm">
@@ -32,7 +32,7 @@ export default function Home() {
 
           {/* Main Content - Single Column with Overlapping Image */}
           <div className="relative">
-            
+
             {/* Name and Tagline */}
             <div className="text mb-8 mt-30 pl-5 ">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 font-[family-name:var(--font-montserrat)]">
@@ -43,28 +43,38 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Large CREATIVE Text with Image Overlay */}
-            <div className="relative flex justify-center items-center  mb-16">
-              {/* Background CREATIVE Text */}
-             <div className=" flex justify-center -pl-5">
-               <div>
-                <h2 className="text-8xl md:text-9xl lg:text-[12rem] font-black text-transparent bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-300 bg-clip-text font-[family-name:var(--font-montserrat)] select-none ">
-                DEVELOPER
-              </h2>
-               </div>
-              
-             </div>
-              
-              {/* Profile Image Overlapping Text */}
-              <div className="absolute inset-0 flex items-center justify-center mt-32">
-                <img 
-                  src="/image/profile.png" 
-                  alt="Profile" 
-                  className="w-96 h-[45rem] object-cover  hover:scale-105 transition-transform duration-300 "
+            {/* Large DEVELOPER Text with Image Overlay */}
+            <div className="relative flex justify-center items-center mb-16 h-[40rem]">
+              {/* Profile Image - Now in the background */}
+              <div className="absolute inset-0 flex items-center justify-center z-0 mt-32">
+                <img
+                  src="/image/profile.png"
+                  alt="Profile"
+                  className="w-96 h-[45rem] object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="absolute inset-0 flex items-center justify-center mt-32">
-                
+
+              {/* Foreground Selective Outlined Text */}
+              <div className="relative z-10 flex justify-center">
+                <h2
+                  className="text-8xl md:text-9xl lg:text-[12rem] font-black select-none flex"
+                  style={{ fontFamily: "var(--font-montserrat)" }}
+                >
+                  <span className="text-transparent bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-300 bg-clip-text">
+                    DEV
+                  </span>
+                  <span
+                    style={{
+                      WebkitTextStroke: "2px #fbbf24",
+                      color: "transparent"
+                    }}
+                  >
+                    ELO
+                  </span>
+                  <span className="text-transparent bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-300 bg-clip-text">
+                    PER
+                  </span>
+                </h2>
               </div>
             </div>
 
@@ -98,7 +108,7 @@ export default function Home() {
             <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -rotate-90 origin-center">
               {/* <p className="text-sm text-gray-400 whitespace-nowrap">Design that speaks.</p> */}
             </div>
-            
+
             <div className="absolute right-0 top-1/2 transform -translate-y-1/2 rotate-90 origin-center">
               {/* <p className="text-sm text-gray-400 whitespace-nowrap">Visuals that convert.</p> */}
             </div>
@@ -115,7 +125,7 @@ export default function Home() {
             About Me
           </h2>
           <p className="text-gray-300 leading-relaxed text-lg">
-            I'm a visual designer passionate about creating meaningful brand experiences. 
+            I'm a visual designer passionate about creating meaningful brand experiences.
             My work spans across digital and print media, focusing on clean aesthetics and strategic thinking.
           </p>
         </div>
@@ -127,13 +137,13 @@ export default function Home() {
           <h2 className="text-4xl font-bold text-transparent bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text text-center mb-12 font-[family-name:var(--font-montserrat)]">
             Featured Work
           </h2>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-gray-900 p-8 rounded-2xl hover:bg-gray-800 transition">
               <h3 className="text-2xl font-bold text-white mb-3">Brand Identity</h3>
               <p className="text-gray-400">Complete visual identity systems for modern brands.</p>
             </div>
-            
+
             <div className="bg-gray-900 p-8 rounded-2xl hover:bg-gray-800 transition">
               <h3 className="text-2xl font-bold text-white mb-3">Digital Design</h3>
               <p className="text-gray-400">Web interfaces and digital experiences that engage.</p>
