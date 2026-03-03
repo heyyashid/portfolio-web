@@ -34,7 +34,7 @@ export default function Home() {
           <div className="relative">
 
             {/* Name and Tagline */}
-            <div className="text mb-8 mt-30 pl-5 ">
+            <div className="text mb-8 mt-50 pl-5 ">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 font-[family-name:var(--font-montserrat)]">
                 ASHID KV
               </h1>
@@ -44,7 +44,7 @@ export default function Home() {
             </div>
 
             {/* Large DEVELOPER Text with Image Overlay */}
-            <div className="relative flex justify-center items-center -mt-60 mb-16 h-[40rem]">
+            <div className="relative flex justify-center items-center -mt-60 mb-10 h-[40rem]">
               {/* Profile Image - Now in the background */}
               <div className="absolute inset-0 flex items-center justify-center z-0">
                 <img
@@ -79,7 +79,7 @@ export default function Home() {
             </div>
 
             {/* Visual Designer Title */}
-            <div className="text-center mb-8 mt-100">
+            <div className="text-center mb-8 mt-40">
               <h3 className="text-3xl md:text-4xl font-bold text-transparent bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text font-[family-name:var(--font-montserrat)]">
                 VISUAL DESIGNER
               </h3>
