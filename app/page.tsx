@@ -1,3 +1,5 @@
+import SkillsSection from "./components/SkillsSection";
+
 export default function Home() {
   return (
     <main className="bg-black min-h-screen text-white">
@@ -117,6 +119,9 @@ export default function Home() {
 
         </div>
       </section>
+
+      {/* SKILLS & EDUCATION */}
+      <SkillsSection />
 
       {/* ABOUT SECTION */}
       <section id="about" className="py-20 px-6 bg-gray-900">
