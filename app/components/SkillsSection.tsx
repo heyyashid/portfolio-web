@@ -3,86 +3,192 @@
 import { useEffect, useRef, useState } from "react";
 
 const skills = [
-  { name: "Flutter", icon: "🐦", level: 90, color: "#54c5f8", category: "Mobile" },
-  { name: "Dart", icon: "🎯", level: 88, color: "#6c8ebf", category: "Language" },
-  { name: "React", icon: "⚛️", level: 82, color: "#61dafb", category: "Web" },
-  { name: "Next.js", icon: "▲", level: 78, color: "#e2e8f0", category: "Web" },
-  { name: "TypeScript", icon: "📘", level: 75, color: "#3b82f6", category: "Language" },
-  { name: "Firebase", icon: "🔥", level: 85, color: "#f97316", category: "Backend" },
-  { name: "Node.js", icon: "🟢", level: 70, color: "#4ade80", category: "Backend" },
-  { name: "Figma", icon: "🎨", level: 80, color: "#e879f9", category: "Design" },
-  { name: "Git", icon: "🔀", level: 85, color: "#f97316", category: "Tools" },
-  { name: "REST API", icon: "🔗", level: 83, color: "#2dd4bf", category: "Backend" },
-  { name: "Tailwind CSS", icon: "💨", level: 88, color: "#38bdf8", category: "Web" },
-  { name: "UI/UX Design", icon: "✏️", level: 76, color: "#a78bfa", category: "Design" },
+  { name: "Flutter",      icon: "🐦", level: 90, color: "#54c5f8", category: "Mobile"   },
+  { name: "Dart",         icon: "🎯", level: 88, color: "#6c8ebf", category: "Language" },
+  { name: "React",        icon: "⚛️", level: 82, color: "#61dafb", category: "Web"      },
+  { name: "Next.js",      icon: "▲",  level: 78, color: "#e2e8f0", category: "Web"      },
+  { name: "TypeScript",   icon: "📘", level: 75, color: "#3b82f6", category: "Language" },
+  { name: "Firebase",     icon: "🔥", level: 85, color: "#f97316", category: "Backend"  },
+  { name: "Node.js",      icon: "🟢", level: 70, color: "#4ade80", category: "Backend"  },
+  { name: "Figma",        icon: "🎨", level: 80, color: "#e879f9", category: "Design"   },
+  { name: "Git",          icon: "🔀", level: 85, color: "#fb923c", category: "Tools"    },
+  { name: "REST API",     icon: "🔗", level: 83, color: "#2dd4bf", category: "Backend"  },
+  { name: "Tailwind CSS", icon: "💨", level: 88, color: "#38bdf8", category: "Web"      },
+  { name: "UI/UX Design", icon: "✏️", level: 76, color: "#a78bfa", category: "Design"   },
 ];
 
 const education = [
-  {
-    degree: "Bachelor of Computer Science",
-    school: "University of Technology",
-    year: "2020 - 2024",
-    icon: "🎓",
-    glow: "#fbbf24",
-  },
-  {
-    degree: "Flutter Development Bootcamp",
-    school: "Udemy - Angela Yu",
-    year: "2022",
-    icon: "📱",
-    glow: "#38bdf8",
-  },
-  {
-    degree: "Full Stack Web Development",
-    school: "freeCodeCamp",
-    year: "2023",
-    icon: "💻",
-    glow: "#4ade80",
-  },
+  { degree: "Bachelor of Computer Science",  school: "University of Technology", year: "2020 - 2024", icon: "🎓", glow: "#fbbf24" },
+  { degree: "Flutter Development Bootcamp",  school: "Udemy - Angela Yu",        year: "2022",        icon: "📱", glow: "#38bdf8" },
+  { degree: "Full Stack Web Development",    school: "freeCodeCamp",             year: "2023",        icon: "💻", glow: "#4ade80" },
 ];
 
-function AnimatedCard({
-  children,
-  delay,
-  direction,
-}: {
-  children: React.ReactNode;
-  delay: number;
-  direction: "left" | "right" | "top" | "bottom";
-}) {
+const entrances = [
+  { x: -200, y: -100, rotate: -15, scale: 0.5 },
+  { x:  200, y: -150, rotate:  12, scale: 0.6 },
+  { x: -150, y:  200, rotate:  -8, scale: 0.7 },
+  { x:  300, y:  100, rotate:  18, scale: 0.5 },
+  { x:    0, y: -250, rotate: -20, scale: 0.4 },
+  { x: -300, y:   50, rotate:  10, scale: 0.6 },
+  { x:  250, y:  -80, rotate: -12, scale: 0.7 },
+  { x: -100, y:  300, rotate:  15, scale: 0.5 },
+  { x:  200, y:  200, rotate: -18, scale: 0.6 },
+  { x: -250, y: -200, rotate:   8, scale: 0.5 },
+  { x:  150, y: -300, rotate: -10, scale: 0.7 },
+  { x: -200, y:  150, rotate:  20, scale: 0.6 },
+];
+
+function useScrollReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setVisible(true), delay);
-        }
-      },
-      { threshold: 0.1 }
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [delay]);
+  }, [threshold]);
 
-  const transforms: Record<string, string> = {
-    left: "translate(-120px, -40px) rotate(-6deg)",
-    right: "translate(120px, -40px) rotate(6deg)",
-    top: "translate(0, -100px) rotate(-3deg)",
-    bottom: "translate(0, 100px) rotate(3deg)",
-  };
+  return { ref, visible };
+}
+
+function SkillCard({ skill, index }: { skill: typeof skills[0]; index: number }) {
+  const { ref, visible } = useScrollReveal(0.05);
+  const e = entrances[index % entrances.length];
 
   return (
-    <div
-      ref={ref}
-      style={{
-        transform: visible ? "translate(0,0) rotate(0deg)" : transforms[direction],
-        opacity: visible ? 1 : 0,
-        transition: `transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease`,
+    <div ref={ref} style={{ perspective: "800px", position: "relative", zIndex: 1 }}>
+      <div
+        style={{
+          transform: visible
+            ? "translate(0,0) rotate(0deg) scale(1) rotateX(0deg)"
+            : `translate(${e.x}px,${e.y}px) rotate(${e.rotate}deg) scale(${e.scale}) rotateX(20deg)`,
+          opacity: visible ? 1 : 0,
+          transition: `transform 0.9s cubic-bezier(0.34,1.4,0.64,1) ${index * 100}ms,
+                       opacity 0.6s ease ${index * 100}ms,
+                       box-shadow 0.3s ease,
+                       border-color 0.3s ease`,
+          background: "linear-gradient(135deg,rgba(255,255,255,0.09) 0%,rgba(255,255,255,0.03) 100%)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(255,255,255,0.12)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.15)",
+          borderRadius: "1rem",
+          padding: "1.25rem",
+          cursor: "default",
+          overflow: "hidden",
+          position: "relative",
+        }}
+        onMouseEnter={e => {
+          const el = e.currentTarget as HTMLDivElement;
+          el.style.transform = "translateY(-18px) scale(1.22) rotateX(0deg)";
+          el.style.boxShadow = `0 40px 80px rgba(0,0,0,0.9), 0 0 0 2px ${skill.color}, 0 0 50px ${skill.color}, 0 0 100px ${skill.color}55, inset 0 1px 0 rgba(255,255,255,0.3)`;
+          el.style.borderColor = skill.color;
+          el.style.zIndex = "99";
+          (el.parentElement as HTMLDivElement).style.zIndex = "99";
+        }}
+        onMouseLeave={e => {
+          const el = e.currentTarget as HTMLDivElement;
+          el.style.transform = "translateY(0) scale(1) rotateX(0deg)";
+          el.style.boxShadow = "0 8px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.15)";
+          el.style.borderColor = "rgba(255,255,255,0.12)";
+          el.style.zIndex = "1";
+          (el.parentElement as HTMLDivElement).style.zIndex = "1";
+        }}
+      >
+        {/* Top shine */}
+        <div style={{ position:"absolute", top:0, left:0, right:0, height:"1px", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent)", borderRadius:"1rem 1rem 0 0" }} />
+        {/* Left shine */}
+        <div style={{ position:"absolute", top:0, left:0, bottom:0, width:"1px", background:"linear-gradient(180deg,rgba(255,255,255,0.2),transparent)" }} />
+
+        <span style={{ fontSize:"10px", color:"rgba(255,255,255,0.35)", textTransform:"uppercase", letterSpacing:"0.15em" }}>{skill.category}</span>
+
+        <div style={{ display:"flex", alignItems:"center", gap:"0.75rem", marginTop:"0.5rem", marginBottom:"1rem" }}>
+          <span style={{ fontSize:"1.875rem" }}>{skill.icon}</span>
+          <h3 style={{ color:"white", fontWeight:700, fontSize:"1.125rem", margin:0 }}>{skill.name}</h3>
+        </div>
+
+        <div style={{ width:"100%", borderRadius:"9999px", height:"6px", overflow:"hidden", background:"rgba(255,255,255,0.08)" }}>
+          <div style={{
+            height:"100%",
+            borderRadius:"9999px",
+            width: visible ? `${skill.level}%` : "0%",
+            background: `linear-gradient(90deg,${skill.color}88,${skill.color})`,
+            boxShadow: `0 0 10px ${skill.color}88`,
+            transition: `width 1.2s cubic-bezier(0.34,1.2,0.64,1) ${index * 100 + 400}ms`,
+          }} />
+        </div>
+        <p style={{ textAlign:"right", fontSize:"0.75rem", marginTop:"0.25rem", color: skill.color }}>{skill.level}%</p>
+      </div>
+    </div>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  const { ref, visible } = useScrollReveal();
+  return (
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? "translateY(0)" : "translateY(-50px)",
+      transition: "all 0.8s cubic-bezier(0.34,1.4,0.64,1)",
+    }}>
+      {children}
+    </div>
+  );
+}
+
+function EduCard({ edu, index }: { edu: typeof education[0]; index: number }) {
+  const { ref, visible } = useScrollReveal(0.1);
+  const fromLeft = index % 2 === 0;
+
+  return (
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible
+        ? "translate(0,0) rotate(0deg) scale(1)"
+        : `translate(${fromLeft ? "-300px" : "300px"},0) rotate(${fromLeft ? -8 : 8}deg) scale(0.85)`,
+      transition: `all 0.9s cubic-bezier(0.34,1.4,0.64,1) ${index * 180}ms,
+                   box-shadow 0.3s ease, border-color 0.3s ease`,
+      background: "linear-gradient(135deg,rgba(255,255,255,0.07) 0%,rgba(255,255,255,0.02) 100%)",
+      backdropFilter: "blur(24px)",
+      WebkitBackdropFilter: "blur(24px)",
+      border: "1px solid rgba(255,255,255,0.1)",
+      boxShadow: "0 8px 32px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.12)",
+      borderRadius: "1rem",
+      padding: "1.75rem",
+      display: "flex",
+      alignItems: "center",
+      gap: "1.5rem",
+      overflow: "hidden",
+      position: "relative",
+    }}
+      onMouseEnter={e => {
+        const el = e.currentTarget as HTMLDivElement;
+        el.style.boxShadow = `0 30px 70px rgba(0,0,0,0.7), 0 0 0 2px ${edu.glow}, 0 0 50px ${edu.glow}66, inset 0 1px 0 rgba(255,255,255,0.2)`;
+        el.style.borderColor = edu.glow;
+        el.style.transform = "translateY(-6px) scale(1.02)";
+      }}
+      onMouseLeave={e => {
+        const el = e.currentTarget as HTMLDivElement;
+        el.style.boxShadow = "0 8px 32px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.12)";
+        el.style.borderColor = "rgba(255,255,255,0.1)";
+        el.style.transform = "translateY(0) scale(1)";
       }}
     >
-      {children}
+      <div style={{ position:"absolute", top:0, left:0, right:0, height:"1px", background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent)" }} />
+
+      <div style={{ fontSize:"2rem", width:"4rem", height:"4rem", display:"flex", alignItems:"center", justifyContent:"center", borderRadius:"0.75rem", flexShrink:0, background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", boxShadow:`0 4px 16px ${edu.glow}22` }}>
+        {edu.icon}
+      </div>
+
+      <div style={{ flex:1 }}>
+        <h3 style={{ color:"white", fontWeight:700, fontSize:"1.25rem", marginBottom:"0.25rem" }}>{edu.degree}</h3>
+        <p style={{ color:"rgba(255,255,255,0.4)", fontSize:"0.875rem", margin:0 }}>{edu.school}</p>
+      </div>
+
+      <div style={{ fontWeight:700, fontSize:"1.125rem", whiteSpace:"nowrap", color: edu.glow }}>{edu.year}</div>
     </div>
   );
 }
@@ -90,163 +196,53 @@ function AnimatedCard({
 export default function SkillsSection() {
   return (
     <>
-      {/* SKILLS SECTION */}
-      <section className="py-24 px-6 overflow-hidden relative" style={{ background: "linear-gradient(135deg, #0a0a0a 0%, #111827 50%, #0a0a0a 100%)" }}>
+      {/* SKILLS */}
+      <section style={{ padding:"6rem 1.5rem", position:"relative", background:"linear-gradient(135deg,#0a0a0a 0%,#111827 50%,#0a0a0a 100%)" }}>
+        <div style={{ position:"absolute", top:"5rem", left:"2.5rem", width:"18rem", height:"18rem", borderRadius:"9999px", opacity:0.2, filter:"blur(80px)", background:"radial-gradient(circle,#fbbf24,transparent)", pointerEvents:"none" }} />
+        <div style={{ position:"absolute", bottom:"5rem", right:"2.5rem", width:"24rem", height:"24rem", borderRadius:"9999px", opacity:0.15, filter:"blur(80px)", background:"radial-gradient(circle,#38bdf8,transparent)", pointerEvents:"none" }} />
+        <div style={{ position:"absolute", top:"50%", left:"50%", width:"20rem", height:"20rem", borderRadius:"9999px", opacity:0.1, filter:"blur(80px)", background:"radial-gradient(circle,#a78bfa,transparent)", pointerEvents:"none", transform:"translate(-50%,-50%)" }} />
 
-        {/* Ambient blobs */}
-        <div className="absolute top-20 left-10 w-72 h-72 rounded-full opacity-20 blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, #fbbf24, transparent)" }}></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-15 blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, #38bdf8, transparent)" }}></div>
-        <div className="absolute top-1/2 left-1/2 w-80 h-80 rounded-full opacity-10 blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" style={{ background: "radial-gradient(circle, #a78bfa, transparent)" }}></div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-
-          {/* Section Title */}
-          <AnimatedCard delay={0} direction="top">
-            <div className="text-center mb-16">
-              <p className="text-amber-300 text-sm tracking-[0.4em] mb-3 uppercase">What I Work With</p>
-              <h2 className="text-5xl font-black text-white font-[family-name:var(--font-montserrat)]">
+        <div style={{ maxWidth:"72rem", margin:"0 auto", position:"relative", zIndex:1 }}>
+          <SectionTitle>
+            <div style={{ textAlign:"center", marginBottom:"4rem" }}>
+              <p style={{ color:"#fcd34d", fontSize:"0.75rem", letterSpacing:"0.4em", marginBottom:"0.75rem", textTransform:"uppercase" }}>What I Work With</p>
+              <h2 style={{ fontSize:"3rem", fontWeight:900, color:"white", margin:0 }}>
                 Skills &{" "}
-                <span className="text-transparent bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text">
+                <span style={{ background:"linear-gradient(90deg,#fde68a,#fcd34d)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>
                   Expertise
                 </span>
               </h2>
             </div>
-          </AnimatedCard>
+          </SectionTitle>
 
-          {/* Skills Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {skills.map((skill, i) => {
-              const directions: Array<"left" | "right" | "top" | "bottom"> = ["left", "top", "right", "top", "left", "bottom", "right", "top", "left", "bottom", "right", "top"];
-              return (
-                <AnimatedCard key={skill.name} delay={i * 80} direction={directions[i % directions.length]}>
-                  <div
-                    className="group relative rounded-2xl p-5 cursor-default overflow-hidden transition-all duration-300"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
-                      backdropFilter: "blur(20px)",
-                      WebkitBackdropFilter: "blur(20px)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.2)",
-                    }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = `0 16px 48px rgba(0,0,0,0.5), 0 0 30px ${skill.color}33, inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.2)`;
-                      (e.currentTarget as HTMLDivElement).style.border = `1px solid ${skill.color}55`;
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px) scale(1.02)";
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.2)";
-                      (e.currentTarget as HTMLDivElement).style.border = "1px solid rgba(255,255,255,0.12)";
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(0) scale(1)";
-                    }}
-                  >
-                    {/* Glass shine top highlight */}
-                    <div className="absolute top-0 left-0 right-0 h-px rounded-t-2xl" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)" }}></div>
-                    
-                    {/* Glass shine left highlight */}
-                    <div className="absolute top-0 left-0 bottom-0 w-px rounded-l-2xl" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.2), transparent)" }}></div>
-
-                    {/* Category badge */}
-                    <span className="text-[10px] text-white/40 uppercase tracking-widest">{skill.category}</span>
-
-                    {/* Icon + Name */}
-                    <div className="flex items-center gap-3 mt-2 mb-4">
-                      <span className="text-3xl drop-shadow-lg">{skill.icon}</span>
-                      <h3 className="text-white font-bold text-lg font-[family-name:var(--font-montserrat)]">{skill.name}</h3>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="w-full rounded-full h-1.5 overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
-                      <div
-                        className="h-full rounded-full transition-all duration-1000 delay-300"
-                        style={{ width: `${skill.level}%`, background: `linear-gradient(90deg, ${skill.color}99, ${skill.color})`, boxShadow: `0 0 8px ${skill.color}88` }}
-                      ></div>
-                    </div>
-                    <p className="text-right text-xs mt-1" style={{ color: skill.color }}>{skill.level}%</p>
-                  </div>
-                </AnimatedCard>
-              );
-            })}
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:"1.25rem", overflow:"visible" }}>
+            {skills.map((skill, i) => (
+              <SkillCard key={skill.name} skill={skill} index={i} />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* EDUCATION SECTION */}
-      <section className="py-24 px-6 overflow-hidden relative" style={{ background: "linear-gradient(135deg, #050505 0%, #0f172a 100%)" }}>
+      {/* EDUCATION */}
+      <section style={{ padding:"6rem 1.5rem", position:"relative", background:"linear-gradient(135deg,#050505 0%,#0f172a 100%)" }}>
+        <div style={{ position:"absolute", top:"2.5rem", right:"5rem", width:"16rem", height:"16rem", borderRadius:"9999px", opacity:0.15, filter:"blur(80px)", background:"radial-gradient(circle,#fbbf24,transparent)", pointerEvents:"none" }} />
+        <div style={{ position:"absolute", bottom:"2.5rem", left:"5rem", width:"20rem", height:"20rem", borderRadius:"9999px", opacity:0.1, filter:"blur(80px)", background:"radial-gradient(circle,#818cf8,transparent)", pointerEvents:"none" }} />
 
-        {/* Ambient blobs */}
-        <div className="absolute top-10 right-20 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, #fbbf24, transparent)" }}></div>
-        <div className="absolute bottom-10 left-20 w-80 h-80 rounded-full opacity-10 blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, #818cf8, transparent)" }}></div>
-
-        <div className="max-w-4xl mx-auto relative z-10">
-
-          <AnimatedCard delay={0} direction="top">
-            <div className="text-center mb-16">
-              <p className="text-amber-300 text-sm tracking-[0.4em] mb-3 uppercase">My Background</p>
-              <h2 className="text-5xl font-black text-white font-[family-name:var(--font-montserrat)]">
-                Edu
-                <span className="text-transparent bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text">
-                  cation
-                </span>
+        <div style={{ maxWidth:"56rem", margin:"0 auto", position:"relative", zIndex:1 }}>
+          <SectionTitle>
+            <div style={{ textAlign:"center", marginBottom:"4rem" }}>
+              <p style={{ color:"#fcd34d", fontSize:"0.75rem", letterSpacing:"0.4em", marginBottom:"0.75rem", textTransform:"uppercase" }}>My Background</p>
+              <h2 style={{ fontSize:"3rem", fontWeight:900, color:"white", margin:0 }}>
+                Edu<span style={{ background:"linear-gradient(90deg,#fde68a,#fcd34d)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>cation</span>
               </h2>
             </div>
-          </AnimatedCard>
+          </SectionTitle>
 
-          <div className="space-y-6">
-            {education.map((edu, i) => {
-              const dirs: Array<"left" | "right"> = ["left", "right", "left"];
-              return (
-                <AnimatedCard key={edu.degree} delay={i * 150} direction={dirs[i % 2]}>
-                  <div
-                    className="relative rounded-2xl p-7 flex items-center gap-6 overflow-hidden transition-all duration-300"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
-                      backdropFilter: "blur(24px)",
-                      WebkitBackdropFilter: "blur(24px)",
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)",
-                    }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 60px rgba(0,0,0,0.6), 0 0 40px ${edu.glow}22, inset 0 1px 0 rgba(255,255,255,0.2)`;
-                      (e.currentTarget as HTMLDivElement).style.border = `1px solid ${edu.glow}44`;
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12)";
-                      (e.currentTarget as HTMLDivElement).style.border = "1px solid rgba(255,255,255,0.1)";
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                    }}
-                  >
-                    {/* Glass shine */}
-                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)" }}></div>
-
-                    {/* Icon */}
-                    <div
-                      className="text-4xl w-16 h-16 flex items-center justify-center rounded-xl flex-shrink-0"
-                      style={{
-                        background: "rgba(255,255,255,0.06)",
-                        border: "1px solid rgba(255,255,255,0.12)",
-                        boxShadow: `0 4px 16px ${edu.glow}22`,
-                      }}
-                    >
-                      {edu.icon}
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1">
-                      <h3 className="text-white font-bold text-xl font-[family-name:var(--font-montserrat)] mb-1">{edu.degree}</h3>
-                      <p className="text-white/40 text-sm">{edu.school}</p>
-                    </div>
-
-                    {/* Year */}
-                    <div className="font-bold text-lg whitespace-nowrap" style={{ color: edu.glow }}>
-                      {edu.year}
-                    </div>
-                  </div>
-                </AnimatedCard>
-              );
-            })}
+          <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
+            {education.map((edu, i) => (
+              <EduCard key={edu.degree} edu={edu} index={i} />
+            ))}
           </div>
-
         </div>
       </section>
     </>
