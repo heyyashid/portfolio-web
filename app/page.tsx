@@ -1,4 +1,5 @@
 import SkillsSection from "./components/SkillsSection";
+import SocialSection from "./components/SocialSection";
 
 export default function Home() {
   return (
@@ -122,6 +123,9 @@ export default function Home() {
 
       {/* SKILLS & EDUCATION */}
       <SkillsSection />
+
+      {/* SOCIAL LINKS */}
+      <SocialSection />
 
       {/* ABOUT SECTION */}
       <section id="about" className="py-20 px-6 bg-gray-900">

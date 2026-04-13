@@ -18,9 +18,9 @@ const skills = [
 ];
 
 const education = [
-  { degree: "Bachelor of Computer Science",  school: "University of Technology", year: "2020 - 2024", icon: "🎓", glow: "#fbbf24" },
-  { degree: "Flutter Development Bootcamp",  school: "Udemy - Angela Yu",        year: "2022",        icon: "📱", glow: "#38bdf8" },
-  { degree: "Full Stack Web Development",    school: "freeCodeCamp",             year: "2023",        icon: "💻", glow: "#4ade80" },
+  { degree: "Bachelor of Computer Applications (BCA)", school: "University of Calicut", year: "2021 - 2024", icon: "🖥️", glow: "#fbbf24" },
+  { degree: "Higher Secondary (12th) - Biology Science", school: "State Board", year: "2019 - 2021", icon: "🧬", glow: "#34d399" },
+  { degree: "SSLC (10th)", school: "State Board", year: "2019", icon: "🏫", glow: "#38bdf8" },
 ];
 
 const entrances = [
