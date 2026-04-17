@@ -6,14 +6,10 @@ const skills = [
   { name: "Flutter",      icon: "🐦", level: 90, color: "#54c5f8", category: "Mobile"   },
   { name: "Dart",         icon: "🎯", level: 88, color: "#6c8ebf", category: "Language" },
   { name: "React",        icon: "⚛️", level: 82, color: "#61dafb", category: "Web"      },
-  { name: "Next.js",      icon: "▲",  level: 78, color: "#e2e8f0", category: "Web"      },
-  { name: "TypeScript",   icon: "📘", level: 75, color: "#3b82f6", category: "Language" },
   { name: "Firebase",     icon: "🔥", level: 85, color: "#f97316", category: "Backend"  },
-  { name: "Node.js",      icon: "🟢", level: 70, color: "#4ade80", category: "Backend"  },
   { name: "Figma",        icon: "🎨", level: 80, color: "#e879f9", category: "Design"   },
-  { name: "Git",          icon: "🔀", level: 85, color: "#fb923c", category: "Tools"    },
-  { name: "REST API",     icon: "🔗", level: 83, color: "#2dd4bf", category: "Backend"  },
-  { name: "Tailwind CSS", icon: "💨", level: 88, color: "#38bdf8", category: "Web"      },
+  { name: "Git",          icon: "�", level: 85, color: "#fb923c", category: "Tools"    },
+  { name: "REST API",     icon: "�", level: 83, color: "#2dd4bf", category: "Backend"  },
   { name: "UI/UX Design", icon: "✏️", level: 76, color: "#a78bfa", category: "Design"   },
 ];
 
@@ -32,10 +28,6 @@ const entrances = [
   { x: -300, y:   50, rotate:  10, scale: 0.6 },
   { x:  250, y:  -80, rotate: -12, scale: 0.7 },
   { x: -100, y:  300, rotate:  15, scale: 0.5 },
-  { x:  200, y:  200, rotate: -18, scale: 0.6 },
-  { x: -250, y: -200, rotate:   8, scale: 0.5 },
-  { x:  150, y: -300, rotate: -10, scale: 0.7 },
-  { x: -200, y:  150, rotate:  20, scale: 0.6 },
 ];
 
 function useScrollReveal(threshold = 0.1) {
